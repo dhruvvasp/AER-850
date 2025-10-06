@@ -99,13 +99,13 @@ print(corr_matrix) # Print the correlation matrix
 
 #Step 4 - Classification Model Development/Engineering
 
-# Data Splitting
+#Data Splitting
 X = data[["X", "Y", "Z"]].values
 y = data["Step"].values
 
 from sklearn.model_selection import train_test_split
 
-# Stratified split (80/20)
+#Stratified split (80/20)
 #Train and test sets will have similar distribution of the target variable
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
@@ -157,7 +157,7 @@ regressiongrid.fit(X_train, y_train)
 print("Best CV score - Logistic Regression:", regressiongrid.best_score_)
 print("Best params - Logistic Regression:", regressiongrid.best_params_)
 
-# Evaluate on test set - LR
+#Evaluate on test set - LR
 best_lr = regressiongrid.best_estimator_
 regressionprediction = best_lr.predict(X_test)
 print("Test accuracy - Logistic Regression:", accuracy_score(y_test, regressionprediction))
@@ -195,7 +195,7 @@ svmgrid.fit(X_train, y_train)
 print("Best CV score - SVM:", svmgrid.best_score_)
 print("Best params - SVM:", svmgrid.best_params_)
 
-# Evaluate on test set - SVM
+#Evaluate on test set - SVM
 best_svm = svmgrid.best_estimator_
 svmprediction = best_svm.predict(X_test)
 print("Test accuracy - SVM:", accuracy_score(y_test, svmprediction))
@@ -230,7 +230,7 @@ dtgrid.fit(X_train, y_train)
 print("Best CV score - DT:", dtgrid.best_score_)
 print("Best params - DT:", dtgrid.best_params_)
 
-# Evaluate on test set - DT
+#Evaluate on test set - DT
 best_dt = dtgrid.best_estimator_
 dtprediction = best_dt.predict(X_test)
 print("Test accuracy - DT:", accuracy_score(y_test, dtprediction))
@@ -396,7 +396,7 @@ plt.show()
 
 from joblib import dump, load
 
-#Want to package the best single model chosen in Step 5
+#Packaging the best single model chosen in Step 5
 #Model chosen is Logistic Regression
 final_model = best_lr   # can also be best_svm / best_dt / best_rf
 print(f"\nPackaging model: {final_model}")

@@ -131,7 +131,7 @@ cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 #Pipeline
 regressionpipeline = Pipeline([
     ("scaler", StandardScaler()),
-    ("clf", LogisticRegression(max_iter=1000, multi_class="multinomial", solver="lbfgs", random_state=42))
+    ("clf", LogisticRegression(max_iter=1000, solver="lbfgs", random_state=42))
 ])
 
 #Parameter grid
@@ -357,8 +357,7 @@ base2 = clone(models[top2])
 
 stack = StackingClassifier(
     estimators=[("m1", base1), ("m2", base2)],
-    final_estimator=LogisticRegression(max_iter=1000, multi_class="multinomial",
-                                       solver="lbfgs", random_state=42),
+    final_estimator=LogisticRegression(max_iter=1000, solver="lbfgs", random_state=42),
     passthrough=False,
     n_jobs=-1
 )
@@ -372,7 +371,7 @@ prec = precision_score(y_test, y_pred_stack, average="macro", zero_division=0)
 rec  = recall_score(y_test, y_pred_stack, average="macro", zero_division=0)
 f1m  = f1_score(y_test, y_pred_stack, average="macro", zero_division=0)
 
-print(f"\nStacked ({top1} + {top2}) — "
+print(f"\nStacked ({top1} + {top2}): "
       f"Test Acc: {acc:.3f} | Prec(m): {prec:.3f} | Rec(m): {rec:.3f} | F1(m): {f1m:.3f}")
 
 #Compare vs best single model by the same metric used to rank

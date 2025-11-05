@@ -142,8 +142,7 @@ convnet2 = keras.Sequential([
     layers.InputLayer(input_shape=(500, 500, 3)),
 
     # First Convolutional Block 
-    layers.Conv2D(32, (3,3), activation=None), 
-    layers.LeakyReLU(alpha=0.1),
+    layers.Conv2D(32, (3,3), activation='relu'), 
     layers.MaxPooling2D((2,2)),
 
     # Second Convolutional Block
@@ -152,15 +151,14 @@ convnet2 = keras.Sequential([
     layers.MaxPooling2D((2,2)),
 
     # Third Convolutional Block
-    layers.Conv2D(128, (3,3), activation=None),
-    layers.LeakyReLU(alpha=0.1),
+    layers.Conv2D(128, (3,3), activation='relu'),
     layers.MaxPooling2D((2,2)),
     
 
     # Classifier head
     layers.Flatten(),
     layers.Dense(128, activation='relu'),
-    layers.Dropout(0.4),
+    layers.Dropout(0.6),
     layers.Dense(num_classes, activation='softmax')
 ])
 
@@ -217,5 +215,8 @@ print("\nConvNet-2:")
 test_loss_2, test_acc_2 = convnet2.evaluate(test_data, verbose=1)
 print(f"Test accuracy: {test_acc_2:.4f} | Test loss: {test_loss_2:.4f}")
 
-# Save the best model based on validation accuracy
+# Save one model  
 convnet2.save("convnet_best.keras")
+
+# Save the other model  
+convnet1.save("convnet_best1.keras")
